@@ -9,9 +9,10 @@ ARG CA_CERTIFICATE_FILE=ca.crt
 
 # Install CA certificate.
 RUN apk update && \
+    apk upgrade && \
     apk add --no-cache ca-certificates && \
     update-ca-certificates && \
-    echo "${CA_CERTIFICATE}" /usr/local/share/ca-certificates/${CA_CERTIFICATE_FILE} && \
+    echo "${CA_CERTIFICATE}" > /usr/local/share/ca-certificates/${CA_CERTIFICATE_FILE} && \
     update-ca-certificates
 
 # Clean up.
