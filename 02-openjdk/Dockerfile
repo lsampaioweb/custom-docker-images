@@ -1,5 +1,5 @@
 # Base image.
-FROM alpine-with-ca:1.0
+FROM lsampaioweb/custom-ca:3.20.0-alpine
 
 LABEL authors="Luciano Sampaio"
 
