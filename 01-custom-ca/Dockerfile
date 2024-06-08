@@ -5,7 +5,7 @@ LABEL authors="Luciano Sampaio"
 
 # Arguments for CA certificate.
 ARG CA_CERTIFICATE
-ARG CA_CERTIFICATE_FILE=ca.crt
+ARG CA_CERTIFICATE_FILE="ca.crt"
 
 # Install CA certificate.
 RUN apk update && \
