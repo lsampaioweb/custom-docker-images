@@ -52,6 +52,13 @@ docker run -it --name springboot lsampaioweb/springboot:1.0
 ```
 
 ```bash
+docker build -t lsampaioweb/container:1.0 .
+docker build -t lsampaioweb/container:1.1 --build-arg SERVER_PORT=8081 .
+
+docker run -it --name container lsampaioweb/container:1.0
+```
+
+```bash
 docker push lsampaioweb/custom-ca:latest
 docker push lsampaioweb/openjdk:latest
 docker push lsampaioweb/maven:latest

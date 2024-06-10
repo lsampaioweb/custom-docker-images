@@ -1,6 +1,7 @@
 # Base image.
 FROM alpine:3.20.0
 
+# Set metadata.
 LABEL authors="Luciano Sampaio"
 
 # Arguments for CA certificate.
