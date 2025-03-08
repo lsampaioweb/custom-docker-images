@@ -256,6 +256,16 @@ Optimized environment for SpringBoot applications.
     docker tag 4e55c0a5fd09 lsampaioweb/alpine-myapp:stable
     ```
 
+1. Fixing Log Directory Permissions (If Needed):
+
+    By default, the **Docker image runs as the `app` user with UID 1112**. If the log directory on the host has incorrect ownership, the application may fail to write logs.
+
+    If you cloned this repository and the setting was lost, **ensure the logs directory has the correct owner** by running:
+
+    ```bash
+    sudo chown -R 1112:1112 ./logs
+    ```
+
 1. Run the application:
 
     ```bash

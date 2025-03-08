@@ -14,7 +14,7 @@ services:
       # - "9443:9443"
       # - "8181:8181"
     volumes:
-    #   - ./logs:/opt/app/logs # NOT WORKING
+      - "./logs:/opt/app/logs"
       - "./ssl/:/opt/app/ssl/:ro"
     networks:
       - "my-app-network"
