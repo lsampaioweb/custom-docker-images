@@ -2,6 +2,8 @@
 
 This repository contains instructions for building and using custom Docker images for various components of your project. Follow the steps below to set up, build, and push your custom Docker images.
 
+![Hierarquia das imagens](images/Hierarchy.png)
+
 ## Prerequisites
 
 - Ensure you have Docker installed on your system.
@@ -10,14 +12,13 @@ This repository contains instructions for building and using custom Docker image
 
 ## Setting Up Docker Credential Helpers
 
-1. Download the Docker Credential Helper:
-    ```bash
-    wget https://github.com/docker/docker-credential-helpers/releases/download/v0.8.2/docker-credential-secretservice-v0.8.2.linux-amd64
-    ```
+1. Verify the Latest Version:
 
-1. Rename the downloaded file:
+   [Docker Credential Helpers Releases page](https://github.com/docker/docker-credential-helpers/releases)
+
+1. Download the Latest Version:
     ```bash
-    mv docker-credential-secretservice-v0.8.2.linux-amd64 docker-credential-secretservice
+    wget -O docker-credential-secretservice https://github.com/docker/docker-credential-helpers/releases/download/v0.9.2/docker-credential-secretservice-v0.9.2.linux-amd64
     ```
 
 1. Move the file to /usr/local/bin:
@@ -32,7 +33,15 @@ This repository contains instructions for building and using custom Docker image
 
 1. Configure Docker to use the credential helper:
 
-    Once you log in, your password will be saved, and you won't have to type it every time you use Docker commands.
+    Once you log in, your password will be saved in the credential store (`secretservice`), so you won't have to type it every time you use Docker commands.
+
+    First, ensure the `~/.docker/` directory exists:
+
+    ```bash
+    mkdir -p ~/.docker
+    ```
+
+    Then, open the configuration file:
 
     ```bash
     nano ~/.docker/config.json
@@ -46,128 +55,239 @@ This repository contains instructions for building and using custom Docker image
     ```
 
 1. Log in to Docker:
+
+    **Docker now requires a Personal Access Token (PAT) instead of a password.**
+
+    - Visit [Docker Personal Access Tokens](https://app.docker.com/settings) to generate a new token.
+    - Use the token as your password when logging in **for the first time**.
+
     ```bash
-    docker login -u <your user>
+    docker login -u <your-docker-username>
     ```
 
-## Building Custom Docker Images
+    When prompted for a password, **enter the Personal Access Token instead of your password**.
 
-1. Custom CA Image
+1. **Future Logins (Optional)**:
 
-    1. Build the Custom CA image:
-        ```bash
-        docker build -t lsampaioweb/custom-ca:3.20.0-alpine --build-arg CA_CERTIFICATE="$(cat ca.crt)" .
+    If you ever need to log in again in the future, simply run:
 
-        docker build -t lsampaioweb/custom-ca:latest --build-arg CA_CERTIFICATE="$(cat ca.crt)" .
-        ```
+    ```bash
+    docker login
+    ```
 
-    1. Run and access the Custom CA container:
-        ```bash
-        docker run -it --name custom-ca lsampaioweb/custom-ca:latest
-        docker exec -it custom-ca sh
-        ```
+    Docker will use the saved credentials and log you in automatically.
 
-    1. Push the image to Docker Hub:
+1. **Logging in with a Different Account**:
 
-        ```bash
-        docker push lsampaioweb/custom-ca:latest
-        ```
+    If you need to switch accounts, first log out:
 
-1. OpenJDK Image
+    ```bash
+    docker logout
+    ```
 
-    1. Build the OpenJDK images:
-        ```bash
-        docker build -t lsampaioweb/openjdk:21-jdk --build-arg JAVA_PACKAGE="openjdk21-jdk" .
+    Then, log in again with the new credentials:
 
-        docker build -t lsampaioweb/openjdk:21-jre --build-arg JAVA_PACKAGE="openjdk21-jre-headless" .
+    ```bash
+    docker login -u <new-docker-username>
+    ```
 
-        docker build -t lsampaioweb/openjdk:latest .
-        ```
+## Building and Pushing Images
 
-    1. Run and access the OpenJDK container:
-        ```bash
-        docker run -it --name openjdk-jdk lsampaioweb/openjdk:21-jdk
-        docker exec -it openjdk-jdk sh
+Follow the steps below to build and push Docker images for each component.
 
-        docker run -it --name openjdk-jre lsampaioweb/openjdk:21-jre
-        docker exec -it openjdk-jre sh
-        ```
+### 1. Base Image
 
-    1. Push the image to Docker Hub:
+Add our custom SSL certificates so all future images already trust them.
 
-        ```bash
-        docker push lsampaioweb/openjdk:21-jdk
-        docker push lsampaioweb/openjdk:21-jre
-        ```
+1. Build the Image:
 
-1. Maven Image
+    ```bash
+    cd 01-base/
+    ./build.sh
+    ```
 
-    1. Search for the Maven package:
-        ```bash
-        apk search -v maven
-        ```
+1. Push the Image to Docker Hub:
 
-    1. Build the Maven images:
-        ```bash
-        docker build -t lsampaioweb/maven:3.9.6 .
+    ```bash
+    ./push.sh
+    ```
 
-        docker build -t lsampaioweb/maven:3.9.6 --build-arg MAVEN_APK_VERSION="maven=3.9.6-r0" .
+1. Enter the Container Interactively:
 
-        docker build -t lsampaioweb/maven:latest .
-        ```
+    To start an interactive session inside the container and inspect its contents, use the following command:
 
-    1. Run and access the Maven container:
-        ```bash
-        docker run -it --name maven lsampaioweb/maven:3.9.6
-        docker exec -it maven sh
-        ```
+    ```bash
+    docker run --rm -it lsampaioweb/alpine-base:3.21-1.0 sh
+    ```
 
-    1. Push the image to Docker Hub:
+### 2. JDK
 
-        ```bash
-        docker push lsampaioweb/maven:3.9.6
-        ```
+Provide a JDK environment for Java application builds.
 
-1. Spring Boot Image
+1. Build the Image:
 
-    1. Build the Spring Boot images:
-        ```bash
-        docker build -t lsampaioweb/springboot:1.0 .
+    ```bash
+    cd 02-jdk/
+    ./build.sh
+    ```
 
-        docker build -t lsampaioweb/springboot:latest .
-        ```
+1. Push the Image to Docker Hub:
 
-    1. Run and access the Spring Boot container:
-        ```bash
-        docker run -it --name springboot lsampaioweb/springboot:1.0
-        docker exec -it springboot sh
-        ```
+    ```bash
+    ./push.sh
+    ```
 
-    1. Push the image to Docker Hub:
+### 3. JRE
 
-        ```bash
-        docker push lsampaioweb/springboot:1.0
-        ```
+Provide a JRE environment for running Java applications.
 
-1. Your Spring Boot Application
+1. Build the Image:
 
-    1. Build your application images:
-        ```bash
-        docker build -t lsampaioweb/container:1.0 .
+    ```bash
+    cd 03-jre/
+    ./build.sh
+    ```
 
-        docker build -t lsampaioweb/container:1.1 --build-arg SERVER_PORT=8081 .
-        ```
+1. Push the Image to Docker Hub:
 
-    1. Run and access the your container:
-        ```bash
-        docker run -it --name container lsampaioweb/container:1.0
-        ```
+    ```bash
+    ./push.sh
+    ```
 
-    1. Push the image to Docker Hub:
+### 4. Maven
 
-        ```bash
-        docker push lsampaioweb/container:1.0
-        ```
+Provide Maven with pre-configured settings for builds.
+
+1. Build the Image:
+
+    ```bash
+    cd 04-maven/
+    ./build.sh
+    ```
+
+1. Push the Image to Docker Hub:
+
+    ```bash
+    ./push.sh
+    ```
+
+### 5. SpringBoot
+
+Optimized environment for SpringBoot applications.
+
+1. Build the Image:
+
+    ```bash
+    cd 05-springboot/
+    ./build.sh
+    ```
+
+1. Push the Image to Docker Hub:
+
+    ```bash
+    ./push.sh
+    ```
+
+## Cleaning Up Unused Resources
+
+1. Remove unused images, containers, networks, and volumes:
+
+    ```bash
+    docker system prune -a --volumes
+    docker system prune -a --filter "until=96h" -f
+    ```
+
+## Use the Default Docker Images from Docker Hub
+
+### 1. My App 01
+
+1. [HTTPS](https.md)
+    - Securing your application with HTTPS.
+
+1. Compile the application:
+
+    ```bash
+    cd 06-my-app-01/
+    mvn clean package
+    mvn clean package -DskipTests
+    ```
+
+1. Run the application locally:
+
+    ```bash
+    mvn spring-boot:run
+    ```
+
+1. **Firewall Configuration (Ubuntu with UFW)**:
+
+    If you are using **Ubuntu** with **UFW enabled**, you need to allow the necessary ports for Spring Boot applications:
+
+    ```bash
+    sudo ufw allow 8080/tcp comment "Allow Spring Boot HTTP (8080)"
+    sudo ufw allow 8081/tcp comment "Allow Spring Boot HTTP (8081)"
+    sudo ufw allow 9443/tcp comment "Allow Spring Boot HTTPS (9443)"
+    sudo ufw allow 443/tcp comment "Allow HTTPS (443)"
+    ```
+
+    After adding the rules, reload UFW to apply the changes:
+
+    ```bash
+    sudo ufw reload
+    ```
+
+    You can verify that the rules are active by running:
+
+    ```bash
+    sudo ufw status
+    ```
+
+1. Access the application. Navigate to:
+
+    ```bash
+    http://localhost:8080/api/v1/hello
+    https://my-app-01.lan.homelab:9443/api/v1/hello
+    ```
+
+1. Build the Docker image:
+
+    ```bash
+    docker build -t lsampaioweb/alpine-myapp:1.0 .
+    docker tag e64ce8e20f13 lsampaioweb/alpine-myapp:latest
+    docker tag e64ce8e20f13 lsampaioweb/alpine-myapp:stable
+    ```
+
+1. Run the application:
+
+    ```bash
+    docker compose up -d
+    ```
+
+1. View logs:
+
+    ```bash
+    docker compose logs -f my-app
+    ```
+
+1. Start an interactive shell session inside the running container:
+
+    ```bash
+    docker exec -it my-app sh
+    ```
+
+1. Shut down the application:
+
+    ```bash
+    docker compose down
+    ```
+
+1. Push the Image to Docker Hub:
+
+    ```bash
+    docker push lsampaioweb/alpine-myapp:1.0
+    docker push lsampaioweb/alpine-myapp:latest
+    docker push lsampaioweb/alpine-myapp:stable
+    ```
+
 #
 ### Created by:
 
