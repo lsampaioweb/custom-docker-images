@@ -201,24 +201,7 @@ Optimized environment for SpringBoot applications.
 
 ### 1. My App 01
 
-1. [HTTPS](https.md)
-    - Securing your application with HTTPS.
-
-1. Compile the application:
-
-    ```bash
-    cd 06-my-app-01/
-    mvn clean package
-    mvn clean package -DskipTests
-    ```
-
-1. Run the application locally:
-
-    ```bash
-    mvn spring-boot:run
-    ```
-
-1. **Firewall Configuration (Ubuntu with UFW)**:
+1. Firewall Configuration (Ubuntu with UFW):
 
     If you are using **Ubuntu** with **UFW enabled**, you need to allow the necessary ports for Spring Boot applications:
 
@@ -241,19 +224,36 @@ Optimized environment for SpringBoot applications.
     sudo ufw status
     ```
 
-1. Access the application. Navigate to:
+1. [HTTPS](https.md)
+    - Securing your application with HTTPS.
+
+1. Compile the application:
 
     ```bash
-    http://localhost:8080/api/v1/hello
-    https://my-app-01.lan.homelab:9443/api/v1/hello
+    cd 06-my-app-01/
+    mvn clean package
+    mvn clean package -DskipTests
     ```
 
-1. Build the Docker image:
+1. Run the application locally:
+
+    ```bash
+    mvn spring-boot:run
+    ```
+
+1. Or build and run using the Docker image:
 
     ```bash
     docker build -t lsampaioweb/alpine-myapp:1.0 .
-    docker tag e64ce8e20f13 lsampaioweb/alpine-myapp:latest
-    docker tag e64ce8e20f13 lsampaioweb/alpine-myapp:stable
+    ```
+
+1. Create other `tags` for the image:
+
+    The `4e55c0a5fd09` is my current tag.
+
+    ```bash
+    docker tag 4e55c0a5fd09 lsampaioweb/alpine-myapp:latest
+    docker tag 4e55c0a5fd09 lsampaioweb/alpine-myapp:stable
     ```
 
 1. Run the application:
