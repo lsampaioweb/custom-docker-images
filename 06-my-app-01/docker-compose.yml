@@ -1,0 +1,46 @@
+networks:
+  my-app-network:
+    driver: "bridge"
+
+services:
+  my-app:
+    image: "lsampaioweb/alpine-myapp:1.0"
+    # image: "lsampaioweb/alpine-myapp:latest"
+    # image: "lsampaioweb/alpine-myapp:stable"
+    container_name: "my-app"
+    restart: "unless-stopped"
+    ports:
+      - "8080:8080"
+      # - "8181:8181"
+      # - "9443:9443"
+    volumes:
+    #   - ./logs:/opt/app/logs # NOT WORKING
+      - "./ssl/:/opt/app/ssl/:ro"
+    networks:
+      - "my-app-network"
+    environment:
+      # Testing on 8080.
+      - "SPRING_PROFILES_ACTIVE=development"
+
+      # Testing on 9443.
+      # - "SPRING_PROFILES_ACTIVE=production"
+
+      # Testing on a different port.
+      # - "SERVER_PORT=8181"
+    healthcheck:
+      # Testing on localhost.
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8080/actuator/health/ping || exit 1"]
+      # test: ["CMD-SHELL", "wget --no-check-certificate -q -O- https://localhost:9443/actuator/health/ping || exit 1"]
+
+      # Testing on 8080.
+      # test: ["CMD-SHELL", "wget -q -O- http://my-app-01.lan.homelab:8080/actuator/health/ping || exit 1"]
+
+      # Testing on 9443.
+      # test: ["CMD-SHELL", "wget -q -O- https://my-app-01.lan.homelab:9443/actuator/health/ping || exit 1"]
+
+      # Testing on 8181.
+      # test: ["CMD-SHELL", "wget -q -O- http://my-app-01.lan.homelab:8181/actuator/health/ping || exit 1"]
+      start_period: "2s"
+      interval: "10s"
+      timeout: "2s"
+      retries: 2

@@ -1,0 +1,37 @@
+spring:
+  application:
+    # Defines the name of the application.
+    # This name is typically used for logging and monitoring.
+    name: "container"
+
+  threads:
+    virtual:
+      # Enables virtual threads (available in recent Java versions).
+      # Virtual threads can improve concurrency performance for non-blocking workloads.
+      enabled: true
+
+  profiles:
+    # Specifies the active Spring profile.
+    # Use "development" for local development and testing, and "production" for production environments.
+    active: "development"
+    # Uncomment the line below for production use.
+    # active: "production"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # Specifies which management endpoints are exposed over HTTP.
+        # "health" provides application health details.
+        # "metrics" provides performance metrics.
+        include: "health,metrics"
+  endpoint:
+    health:
+      # Configures the level of detail shown for the "health" endpoint.
+      # "always" ensures all details are displayed, regardless of user permissions.
+      show-details: "always"
+
+logging:
+  # Specifies the location of the logging configuration file.
+  # "classpath" ensures that the file is loaded from the application's resources directory.
+  config: "classpath:log/logback-spring.xml"

@@ -1,0 +1,23 @@
+# My custom environment variables.
+# KEY_STORE_PASSWORD: "${KEY_STORE_SSL_PASSWORD_MY_APP_01}"
+
+# Server SSL.
+server:
+  port: ${SERVER_PORT:9443}
+  ssl:
+    enabled: true
+    protocol: "TLS"
+    enabled-protocols: "TLSv1.3"
+
+    # Using PEM format without a passphrase for the private key.
+    # Dynamic paths based on the active profile.
+    certificate: "${SSL_CERT_PATH:./ssl/my-app-01.crt}"
+    certificate-private-key: "${SSL_KEY_PATH:./ssl/my-app-01.key}"
+
+    # Using PKCS12 format with a passphrase.
+    # key-store-type: "PKCS12"
+    # key-store: "./ssl/my-app-01.p12"
+    # key-store-password: "${KEY_STORE_PASSWORD}"
+
+  http2:
+    enabled: true
