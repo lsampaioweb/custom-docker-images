@@ -1,0 +1,10 @@
+<settings>
+  <!-- Mirrors define where Maven fetches dependencies from -->
+  <mirrors>
+    <mirror>
+      <id>Internal Repository</id>
+      <mirrorOf>*</mirrorOf>
+      <url>https://internal-repository/repository/maven-all/</url>
+    </mirror>
+  </mirrors>
+</settings>
