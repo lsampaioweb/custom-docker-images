@@ -1,14 +1,15 @@
 # Base image.
-FROM lsampaioweb/openjdk:21-jre
+FROM lsampaioweb/alpine-openjdk:jre-21-1.0
 
-# Set metadata.
-LABEL authors="Luciano Sampaio"
+# Proxy Settings.
+ENV http_proxy="" \
+    https_proxy=""
 
 # Switch to the non-root user.
 USER ${APP_USER_NAME}
 
 # Change the working directory.
-WORKDIR ${HOME}
+WORKDIR ${APP_HOME}
 
 # Command to run.
 CMD ["sh"]
