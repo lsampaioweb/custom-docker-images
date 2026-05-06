@@ -1,19 +1,28 @@
 #!/bin/bash
 
-getCurrentDateTime() {
+# Get current timestamp in YYYY-MM-DD HH:MM:SS format.
+get_current_datetime() {
   date "+%Y-%m-%d %H:%M:%S"
 }
 
-logMessage () {
-  echo $(getCurrentDateTime) $*
+# Log a message with timestamp.
+log_message() {
+  echo "$(get_current_datetime) $*"
 }
 
-logDebug () {
-  if [ "$DEBUG" == true ]; then
-    logMessage "DEBUG:" $*
+# Log an info message.
+log_info() {
+  log_message "INFO: $*"
+}
+
+# Log a debug message if DEBUG is true.
+log_debug() {
+  if [ "$DEBUG" = "true" ]; then
+    log_message "DEBUG: $*"
   fi
 }
 
-logInfo () {
-  logMessage "INFO:" $*
+# Log an error message to stderr.
+log_error() {
+  log_message "ERROR: $*" >&2
 }
