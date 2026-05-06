@@ -1,0 +1,10 @@
+<settings>
+  <!-- Uncomment and configure if you have a local Nexus or Artifactory mirror. -->
+  <!-- <mirrors>
+    <mirror>
+      <id>local-nexus</id>
+      <mirrorOf>*</mirrorOf>
+      <url>https://packages.lan.home/repository/maven-all/</url>
+    </mirror>
+  </mirrors> -->
+</settings>

@@ -1,0 +1,64 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="Página-1" id="nV4J7mlQ7-6pdtLw6VqN">
+    <mxGraphModel dx="1426" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#FFFFFF);" parent="1" vertex="1">
+          <mxGeometry x="24" width="780" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-2" value="docker.io/lsampaioweb/java-base:alpine.3.23-2026.05" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="249.5" y="30" width="329" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fYZ9vF1uV9CKgiiZ9gmt-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;endFill=1;curved=1;" parent="1" source="d82xZzeLvV1EcBo4BU8v-4" target="d82xZzeLvV1EcBo4BU8v-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-4" value="docker.io/lsampaioweb/java-dev:25-alpine.3.23-2026.05" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="160" width="310" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;endFill=1;curved=1;" parent="1" source="d82xZzeLvV1EcBo4BU8v-6" target="d82xZzeLvV1EcBo4BU8v-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-6" value="docker.io/lsampaioweb/java-runtime:25-alpine.3.23-2026.05" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="445" y="160" width="340" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-7" value="docker.io/lsampaioweb/java-build:25-maven-alpine.3.23-2026.05" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="280" width="360" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;endFill=1;curved=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="1" source="d82xZzeLvV1EcBo4BU8v-9" target="d82xZzeLvV1EcBo4BU8v-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="390" />
+              <mxPoint x="440" y="300" />
+              <mxPoint x="615" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-9" value="docker.io/lsampaioweb/java-web:25-alpine.3.23-2026.05" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="400" width="360" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;endFill=1;curved=1;" parent="1" source="d82xZzeLvV1EcBo4BU8v-11" target="d82xZzeLvV1EcBo4BU8v-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-11" value="docker.io/lsampaioweb/myapp-java:1.0" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="93" y="530" width="254" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;endFill=1;curved=1;" parent="1" source="d82xZzeLvV1EcBo4BU8v-13" target="d82xZzeLvV1EcBo4BU8v-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-13" value="docker.io/lsampaioweb/my-consoleapp:1.0" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="490" y="520" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;endFill=1;curved=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" parent="1" source="d82xZzeLvV1EcBo4BU8v-7" target="d82xZzeLvV1EcBo4BU8v-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;endFill=1;curved=1;" parent="1" source="d82xZzeLvV1EcBo4BU8v-16" target="d82xZzeLvV1EcBo4BU8v-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d82xZzeLvV1EcBo4BU8v-16" value="docker.io/lsampaioweb/java-console:25-alpine.3.23-2026.05" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="450" y="400" width="340" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
