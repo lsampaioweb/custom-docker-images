@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: "custom-docker-images-java"
+
+  threads:
+    virtual:
+      enabled: true
+
+  profiles:
+    active: "development"
+    # active: "production"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,metrics"
+  endpoint:
+    health:
+      show-details: "always"
+
+logging:
+  config: "classpath:log/logback-spring.xml"

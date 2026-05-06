@@ -17,7 +17,6 @@
     </encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
       <fileNamePattern>${LOG_DIR}/archived/${APPLICATION_NAME}-%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-      <!-- Each file should be at most 100MB, keep 1 day worth of history, but at most 1GB -->
       <maxFileSize>100MB</maxFileSize>
       <totalSizeCap>1GB</totalSizeCap>
       <maxHistory>1</maxHistory>

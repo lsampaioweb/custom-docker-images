@@ -1,0 +1,22 @@
+# My custom environment variables.
+KEY_STORE_PASSWORD: "${KEY_STORE_SSL_PASSWORD_MY_APP_01}"
+
+# Server SSL.
+server:
+  port: ${SERVER_PORT:9443}
+  ssl:
+    enabled: true
+    protocol: "TLS"
+    enabled-protocols: "TLSv1.3"
+
+    # Using PEM format without a passphrase for the private key.
+    # certificate: "${SSL_CERT_PATH:./ssl/app.cer}"
+    # certificate-private-key: "${SSL_KEY_PATH:./ssl/app.key}"
+
+    # Using PKCS12 format with a passphrase.
+    key-store-type: "PKCS12"
+    key-store: "./ssl/app.pfx"
+    key-store-password: "${KEY_STORE_PASSWORD}"
+
+  http2:
+    enabled: true

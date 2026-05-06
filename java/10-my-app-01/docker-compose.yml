@@ -1,0 +1,45 @@
+---
+networks:
+  myapp-network:
+    external: true
+
+services:
+  myapp-java:
+    image: "docker.io/lsampaioweb/myapp-java:1.0"
+    # image: "docker.io/lsampaioweb/myapp-java:1.1"
+    # image: "docker.io/lsampaioweb/myapp-java:latest"
+    container_name: "myapp-java"
+    restart: "unless-stopped"
+    read_only: true
+    cap_drop:
+      - "ALL"
+    security_opt:
+      - "no-new-privileges:true"
+    tmpfs:
+      - "/tmp:rw,noexec,nosuid,size=64m"
+    ports:
+      - "8080:8080"
+      # - "9443:9443"
+      # - "8080:80"
+      # - "9443:443"
+    volumes:
+      - "./logs/container:/opt/app/logs"
+      - "./ssl/:/opt/app/ssl/:ro"
+    networks:
+      - "myapp-network"
+    logging:
+      driver: "k8s-file"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=development"
+      # - "SPRING_PROFILES_ACTIVE=production"
+      # - "SERVER_PORT=9443"
+      # - "SSL_CERT_PATH=./ssl/app.cer"
+      # - "SSL_KEY_PATH=./ssl/app.key"
+      - "JAVA_TOOL_OPTIONS=-Xms512m -Xmx1024m"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8080/actuator/health/ping || exit 1"]
+      # test: ["CMD-SHELL", "wget --no-check-certificate -q -O- https://localhost:9443/actuator/health/ping || exit 1"]
+      start_period: "2s"
+      interval: "10s"
+      timeout: "2s"
+      retries: 2
