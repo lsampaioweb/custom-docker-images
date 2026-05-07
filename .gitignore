@@ -1,5 +1,4 @@
 .ansible
-.vscode
 .DS_Store
 *.log
 .github/skills/

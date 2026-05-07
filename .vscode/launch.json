@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Java | 10-my-app-01 | ContainerApplication",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/java/10-my-app-01",
+      "mainClass": "com.aprendendo.container.ContainerApplication",
+      "projectName": "container",
+      "args": "",
+      "envFile": "${workspaceFolder}/java/10-my-app-01/.env"
+    }
+  ]
+}
