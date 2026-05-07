@@ -5,18 +5,28 @@ set -o pipefail # Abort if any command in a pipeline fails.
 # Usage:
 # ./build.sh [--no-cache] [--debug] <project_type> <project_name> [project_version]
 
-. $(dirname "$BASH_SOURCE")/libs/log.sh
-. $(dirname "$BASH_SOURCE")/libs/directory.sh
-. $(dirname "$BASH_SOURCE")/variables/global.sh
-. $(dirname "$BASH_SOURCE")/libs/common.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 
-# Check the return status of the sourced common script.
-# If it's not 0, it means there was an error in parsing or sourcing variables.sh.
-if [ "$?" -ne 0 ]; then
+# shellcheck source=./scripts/libs/log.sh
+. "${SCRIPT_DIR}/libs/log.sh"
+# shellcheck source=./scripts/libs/directory.sh
+. "${SCRIPT_DIR}/libs/directory.sh"
+# shellcheck source=./scripts/variables/global.sh
+. "${SCRIPT_DIR}/variables/global.sh"
+# shellcheck source=./scripts/libs/common.sh
+. "${SCRIPT_DIR}/libs/common.sh"
+
+if ! parse_common_args "$@"; then
   # Print the specific usage message for build.sh.
   log_error "Usage: $0 [--no-cache] [--debug] <project_type> <project_name> [project_version]"
   exit 1
 fi
+
+cd "${REPO_ROOT}"
+
+# Populated by sourced project variables.sh.
+IMAGE_FULLNAME="${IMAGE_FULLNAME:-}"
 
 run_build() {
   local project_dir="$1"

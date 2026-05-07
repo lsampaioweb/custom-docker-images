@@ -5,8 +5,11 @@ set -o pipefail # Abort if any command in a pipeline fails.
 # Helper script to push all images in sequence.
 
 # Source logging functions.
-. $(dirname "$BASH_SOURCE")/libs/log.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-./scripts/push-all-java.sh
+# shellcheck source=./scripts/libs/log.sh
+. "${SCRIPT_DIR}/libs/log.sh"
+
+"${SCRIPT_DIR}/push-all-java.sh"
 
 log_info "All images pushed successfully."

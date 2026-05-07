@@ -5,18 +5,28 @@ set -o pipefail # Abort if any command in a pipeline fails.
 # Usage:
 # ./tag.sh [--debug] <project_type> <project_name> [project_version] [extra_tags...]
 
-. $(dirname "$BASH_SOURCE")/libs/log.sh
-. $(dirname "$BASH_SOURCE")/libs/directory.sh
-. $(dirname "$BASH_SOURCE")/variables/global.sh
-. $(dirname "$BASH_SOURCE")/libs/common.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 
-# Check the return status of the sourced common script.
-# If it's not 0, it means there was an error in parsing or sourcing variables.sh.
-if [ "$?" -ne 0 ]; then
+# shellcheck source=./scripts/libs/log.sh
+. "${SCRIPT_DIR}/libs/log.sh"
+# shellcheck source=./scripts/libs/directory.sh
+. "${SCRIPT_DIR}/libs/directory.sh"
+# shellcheck source=./scripts/variables/global.sh
+. "${SCRIPT_DIR}/variables/global.sh"
+# shellcheck source=./scripts/libs/common.sh
+. "${SCRIPT_DIR}/libs/common.sh"
+
+if ! parse_common_args "$@"; then
   # Print the specific usage message for tag.sh.
   log_error "Usage: $0 [--debug] <project_type> <project_name> [project_version] [extra_tags...]"
   exit 1
 fi
+
+cd "${REPO_ROOT}"
+
+# Populated by sourced project variables.sh.
+IMAGE_FULLNAME="${IMAGE_FULLNAME:-}"
 
 run_tag() {
   local project_dir="$1"
@@ -45,4 +55,4 @@ run_tag() {
   log_info "Tag finished." | tee -a "${log_path}"
 }
 
-run_tag "$project_dir" "$IMAGE_FULLNAME" "$@"
+run_tag "$project_dir" "$IMAGE_FULLNAME" "${COMMON_EXTRA_ARGS[@]}"

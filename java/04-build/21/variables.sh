@@ -2,7 +2,11 @@
 set -e # Abort if there is an issue with any build.
 set -o pipefail # Abort if any command in a pipeline fails.
 
+# This file is sourced by the main build/tag scripts.
+# shellcheck disable=SC2034
+
 # Source project defaults.
+# shellcheck disable=SC1090,SC2154
 source "$project_type/$VARIABLES_FILE"
 
 # Version and component specifics.
@@ -23,6 +27,7 @@ IMAGE_NAME="${BASE_IMAGE_PREFIX}/${COMPONENT_NAME}"
 IMAGE_TAG="${CODE_VERSION}-maven-${OS_VARIANT}-${RELEASE_VERSION}"
 
 # Construct the full image name with registry URL.
+# shellcheck disable=SC2034
 IMAGE_FULLNAME="${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG}"
 
 # Build arguments for the Dockerfile as an array.

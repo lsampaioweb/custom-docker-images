@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Shared variables for Java image-specific variables.sh files that source this file.
+# shellcheck disable=SC2034
+
 # Java project-wide defaults.
 
 # Project configuration.

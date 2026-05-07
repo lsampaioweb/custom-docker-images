@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Shared variables for scripts that source this file.
+# shellcheck disable=SC2034
+
 # Container tool to use (docker, podman, or buildah).
 CONTAINER_TOOL="${CONTAINER_TOOL:-podman}"
 # CONTAINER_TOOL="${CONTAINER_TOOL:-buildah}"

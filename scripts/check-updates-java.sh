@@ -5,8 +5,15 @@ set -o pipefail # Abort if any command in a pipeline fails.
 # Monthly security check script for Java updates.
 
 # Source logging functions.
-. $(dirname "$BASH_SOURCE")/libs/log.sh
-. $(dirname "$BASH_SOURCE")/variables/global.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+
+# shellcheck source=./scripts/libs/log.sh
+. "${SCRIPT_DIR}/libs/log.sh"
+# shellcheck source=./scripts/variables/global.sh
+. "${SCRIPT_DIR}/variables/global.sh"
+
+cd "${REPO_ROOT}"
 
 log_info "=== Java Security Advisory Check ==="
 log_info "Date: $(date)"
