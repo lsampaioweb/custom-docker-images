@@ -3,12 +3,34 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Java | 10-my-app-01 | ContainerApplication",
+      "name": "Java | 10-my-app-01 | ContainerApplication (default)",
       "request": "launch",
       "cwd": "${workspaceFolder}/java/10-my-app-01",
       "mainClass": "com.aprendendo.container.ContainerApplication",
       "projectName": "container",
       "args": "",
+      "envFile": "${workspaceFolder}/java/10-my-app-01/.env"
+    },
+    {
+      "type": "java",
+      "name": "Java | 10-my-app-01 | ContainerApplication (development)",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/java/10-my-app-01",
+      "mainClass": "com.aprendendo.container.ContainerApplication",
+      "projectName": "container",
+      "args": "",
+      "vmArgs": "-Dspring.profiles.active=development",
+      "envFile": "${workspaceFolder}/java/10-my-app-01/.env"
+    },
+    {
+      "type": "java",
+      "name": "Java | 10-my-app-01 | ContainerApplication (production)",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/java/10-my-app-01",
+      "mainClass": "com.aprendendo.container.ContainerApplication",
+      "projectName": "container",
+      "args": "",
+      "vmArgs": "-Dspring.profiles.active=production",
       "envFile": "${workspaceFolder}/java/10-my-app-01/.env"
     }
   ]
