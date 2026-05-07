@@ -10,11 +10,15 @@ services:
     # image: "docker.io/lsampaioweb/myapp-java:latest"
     container_name: "myapp-java"
     restart: "unless-stopped"
+    # Keep the container filesystem read-only for better runtime security.
     read_only: true
+    # Drop all Linux capabilities to reduce the attack surface.
     cap_drop:
       - "ALL"
+    # Prevent privilege escalation inside the container.
     security_opt:
       - "no-new-privileges:true"
+    # Use a small in-memory /tmp with safer mount options.
     tmpfs:
       - "/tmp:rw,noexec,nosuid,size=64m"
     ports:
