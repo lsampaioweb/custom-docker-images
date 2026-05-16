@@ -1,8 +1,0 @@
-[submodule ".copilot-skills-iac"]
-	path = .copilot-skills-iac
-	url = https://github.com/lsampaioweb/copilot-skills-iac.git
-	branch = main
-[submodule ".copilot-skills-dev"]
-	path = .copilot-skills-dev
-	url = https://github.com/lsampaioweb/copilot-skills-dev.git
-	branch = main
