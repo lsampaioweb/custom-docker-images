@@ -1,4 +1,10 @@
 .ansible
 .DS_Store
 *.log
-.github/skills/
+
+# VS Code Copilot symlinks (pointing to .ia-instructions submodule).
+.github/agents
+.github/hooks
+.github/instructions
+.github/prompts
+.github/skills
